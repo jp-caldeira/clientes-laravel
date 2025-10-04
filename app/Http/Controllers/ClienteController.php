@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use App\Models\ClienteEndereco;
+use App\Http\Resources\ClienteResource;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
@@ -13,7 +14,7 @@ class ClienteController extends Controller
         $cliente = new Cliente();
         $cliente->nome = "Empresa 1";
         $cliente->email = "comercial@empresa.com.br";
-        $cliente->cnpj = "13891390000189";
+        $cliente->cnpj = "138913900001977";
         $cliente->observacao = null;
         $cliente->valor_contrato = "3540.45";
 
@@ -29,10 +30,14 @@ class ClienteController extends Controller
         $endereco->id_cliente = $cliente->id;
 
         $endereco->save();
+
+        $novo_cliente = Cliente::with('endereco')->findOrFail($cliente->id);
+        return new ClienteResource($novo_cliente);
     }
 
     public function getClientes()
     {
-        return Cliente::with('endereco')->get();
+        $allClientes = Cliente::with('endereco')->get();
+        return ClienteResource::collection($allClientes);
     }
 }
