@@ -6,4 +6,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/clientes', [ClienteController::class, 'createCliente']);
 
-//Route::get('/clientes', [ClienteController::class, 'getClientes']);
+Route::get('/clientes', [ClienteController::class, 'getClientes']);

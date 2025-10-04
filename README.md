@@ -40,7 +40,13 @@ composer install
     php artisan key:generate
     ```
 
-### 5\. Rodar Migration
+### 5\. Criar arquivo database.sqlite 
+
+```bash
+touch database/database.sqlite
+```
+
+### 6\. Rodar Migrations
 
 - Cria todas as tabelas do banco de dados
 
@@ -48,7 +54,7 @@ composer install
 php artisan migrate
 ```
 
-### 5\. Iniciar o Servidor Local
+### 7\. Iniciar o Servidor Local
 
 ```bash
 php artisan serve
@@ -56,7 +62,8 @@ php artisan serve
 
 A aplicação estará acessível em: `http://127.0.0.1:8000`
 
------
 
-## 6\. Testar Aplicação
+### 8\. Testar Aplicação
 
+- Importar o arquivo *Clientes.postman_collection.json* para o Postman e fazer as requisições. 
+- Não há necessidade de autenticação
