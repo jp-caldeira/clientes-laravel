@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateClienteRequest;
 use App\Models\Cliente;
 use App\Models\ClienteEndereco;
 use App\Http\Resources\ClienteResource;
@@ -9,27 +10,14 @@ use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
-    public function createCliente(Request $request)
+    public function createCliente(CreateClienteRequest $request)
     {
-        $cliente = new Cliente();
-        $cliente->nome = "Empresa 1";
-        $cliente->email = "comercial@empresa.com.br";
-        $cliente->cnpj = "138913900001977";
-        $cliente->observacao = null;
-        $cliente->valor_contrato = "3540.45";
+        $dados_novo_cliente = $request->except('endereco');
+        $cliente = Cliente::create($dados_novo_cliente);
 
-        $cliente->save();
-
-        $endereco = new ClienteEndereco();
-        $endereco->logradouro = "Rua dos Testes";
-        $endereco->numero = "123";
-        $endereco->cep = "02305010";
-        $endereco->complemento = "Conjunto 11";
-        $endereco->bairro = "Centro";
-        $endereco->cidade = "São Paulo";
-        $endereco->id_cliente = $cliente->id;
-
-        $endereco->save();
+        $dados_endereco_cliente = $request->endereco;
+        $dados_endereco_cliente['id_cliente'] = $cliente->id;
+        ClienteEndereco::create($dados_endereco_cliente);
 
         $novo_cliente = Cliente::with('endereco')->findOrFail($cliente->id);
         return new ClienteResource($novo_cliente);
