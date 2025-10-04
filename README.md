@@ -16,7 +16,7 @@ Siga os passos abaixo para preparar o ambiente e rodar a aplicação localmente.
 Baixe o código-fonte do projeto para sua máquina:
 
 ```bash
-git clone [https://github.com/jp-caldeira/clientes-laravel.git]
+git clone https://github.com/jp-caldeira/clientes-laravel.git
 cd clientes-laravel
 ```
 
